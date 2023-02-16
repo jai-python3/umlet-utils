@@ -25,6 +25,7 @@ class Parser:
         self.class_name = None
         self.methods_list = []
         self.imports_list = []
+        self.constants_list = []
 
         logging.info(f"Have instantiated Parser in '{os.path.abspath(__file__)}'")
 
@@ -69,6 +70,16 @@ class Parser:
             self._parse_file()
         return self.imports_list
 
+    def get_constants_list(self) -> None:
+        """Retrieve the list of import statements for the class.
+
+        Returns:
+            list: list of import statements
+        """
+        if not self.is_parsed:
+            self._parse_file()
+        return self.constants_list
+
     def _parse_file(self) -> None:
         logging.info(f"Will read file '{self.infile}'")
         line_ctr = 0
@@ -89,7 +100,9 @@ class Parser:
                         self.imports_list.append(line.strip())
                     elif line.startswith("from ") and " import " in line:
                         self.imports_list.append(line.strip())
-
+                    elif "=" in line:
+                        constant = line.split("=")[0].strip()
+                        self.constants_list.append(constant)
 
                 if line.startswith("class "):
                     class_found = True
