@@ -113,6 +113,8 @@ class Parser:
                     if "src" in self.infile:
                         parts = self.infile.split("src/")
                         prefix = parts[1].replace("/", "::")
+                        if prefix.endswith(".py"):
+                            prefix = prefix.rstrip(".py")
                         full_class_name = f"{prefix}::{class_name}"
                     else:
                         full_class_name = class_name
