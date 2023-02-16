@@ -48,6 +48,7 @@ class Writer:
                 class_name (str): the name of the class
                 private_attributes_list (list): the list of private attributes declared in the constructor of the class
                 methods_list (list): the list of methods defined in the class
+                imports_list (list): the list of import statements in the class
         """
         x = X_INITIAL_POSITION
         y = Y_INITIAL_POSITION
@@ -67,6 +68,7 @@ class Writer:
                 class_name = class_name.rstrip(":")
 
             methods_list = obj["methods_list"]
+            imports_list = obj["imports_list"]
             private_attributes_list = obj["private_attributes_list"]
             logging.info(
                 f"Here are the '{len(private_attributes_list)} private attributes declared in the constructor of class '{class_name}'"
@@ -92,6 +94,10 @@ class Writer:
                         <panel_attributes>bg={background_color}"""
             )
             content.append(class_name)
+            if len(imports_list) > 0:
+                for import_statement in imports_list:
+                    content.append(f"//{import_statement}")
+
             content.append("--")
 
             for attribute in private_attributes_list:

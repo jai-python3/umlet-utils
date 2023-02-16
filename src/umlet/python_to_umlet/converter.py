@@ -50,6 +50,7 @@ class Converter:
                 "class_name": class_name,
                 "private_attributes_list": parser.get_private_attributes_list(),
                 "methods_list": parser.get_methods_list(),
+                "imports_list": parser.get_imports_list(),
             }
 
             file_objects.append(lookup)

@@ -24,6 +24,7 @@ class Parser:
         self.private_attributes_list = []
         self.class_name = None
         self.methods_list = []
+        self.imports_list = []
 
         logging.info(f"Have instantiated Parser in '{os.path.abspath(__file__)}'")
 
@@ -58,17 +59,40 @@ class Parser:
             self._parse_file()
         return self.methods_list
 
+    def get_imports_list(self) -> None:
+        """Retrieve the list of import statements for the class.
+
+        Returns:
+            list: list of import statements
+        """
+        if not self.is_parsed:
+            self._parse_file()
+        return self.imports_list
+
     def _parse_file(self) -> None:
         logging.info(f"Will read file '{self.infile}'")
         line_ctr = 0
+
+        class_found = False
         found_constructor = False
         processed_constructor = False
+
         with open(self.infile, "r") as f:
             for line in f:
                 line_ctr += 1
                 line = line.strip()
+                if line == "":
+                    continue
+
+                if not class_found:
+                    if line.startswith("import "):
+                        self.imports_list.append(line.strip())
+                    elif line.startswith("from ") and " import " in line:
+                        self.imports_list.append(line.strip())
+
 
                 if line.startswith("class "):
+                    class_found = True
                     class_name = line.replace("class ", "")
                     if "(" in class_name:
                         parts = class_name.split("(")
