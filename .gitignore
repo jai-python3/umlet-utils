@@ -127,3 +127,22 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# All backed up files
+*.bak
+
+# All Excel files
+*.xlsx
+
+# All profiler files
+*.prof
+
+
+git_config_and_push.sh
+# sonar-scanner files
+sonar-scanner.sh
+sonar-project.properties
+.scannerwork
+
+# All Visual Studio Code files
+.vscode
