@@ -36,17 +36,22 @@ class Converter:
         each file and then write the Umlet .uxf file."""
         file_list = self.util.get_file_list_from_directory(self.indir)
 
+        file_objects = []
+
         for python_file in file_list:
             logging.info(f"Processing Python file '{python_file}'")
 
             parser = Parser(infile=python_file)
-
             class_name = parser.get_class_name()
-            private_attributes_list = parser.get_private_attributes_list()
-            methods_list = parser.get_methods_list()
+            if class_name is None:
+                continue
 
-            self.writer.write_file(
-                class_name=class_name,
-                private_attributes_list=private_attributes_list,
-                methods_list=methods_list,
-            )
+            lookup = {
+                "class_name": class_name,
+                "private_attributes_list": parser.get_private_attributes_list(),
+                "methods_list": parser.get_methods_list(),
+            }
+
+            file_objects.append(lookup)
+
+        self.writer.write_file(file_objects)

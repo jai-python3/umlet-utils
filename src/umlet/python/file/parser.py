@@ -73,7 +73,13 @@ class Parser:
                     if "(" in class_name:
                         parts = class_name.split("(")
                         class_name = parts[0]
-                    self.class_name = class_name
+                    if "src" in self.infile:
+                        parts = self.infile.split("src/")
+                        prefix = parts[1].replace("/", "::")
+                        full_class_name = f"{prefix}::{class_name}"
+                    else:
+                        full_class_name = class_name
+                    self.class_name = full_class_name
                 elif line.startswith("def __init__(self"):
                     found_constructor = True
 
