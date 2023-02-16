@@ -86,7 +86,7 @@ class Parser:
                 elif found_constructor and not processed_constructor:
                     if line.startswith("self."):
                         private_attribute = (
-                            line.lstrip("self.").split("=")[0].replace(" ", "")
+                            line.split("=")[0].replace("self.", "").strip()
                         )
                         logging.info(
                             f"derived private attribute '{private_attribute}' from line '{line}'"
