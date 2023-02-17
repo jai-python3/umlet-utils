@@ -11,10 +11,12 @@ from colorama import Fore, Style
 
 from umlet.python_to_umlet.converter import Converter
 
+TIMESTAMP = str(datetime.today().strftime("%Y-%m-%d-%H%M%S"))
+
 DEFAULT_OUTDIR = os.path.join(
     "/tmp/",
     os.path.splitext(os.path.basename(__file__))[0],
-    str(datetime.today().strftime("%Y-%m-%d-%H%M%S")),
+    TIMESTAMP,
 )
 
 
@@ -100,10 +102,17 @@ def main(indir: str, logfile: str, outdir: str, outfile: str, verbose: bool):
 
     logging.basicConfig(filename=logfile, format=LOGGING_FORMAT, level=LOG_LEVEL)
 
+    classes_only_outfile = outfile
+    outfile = outfile.replace(".uxf", f"_{TIMESTAMP}.uxf")
+    classes_only_outfile = classes_only_outfile.replace(
+        ".uxf", f"_classes_only_{TIMESTAMP}.uxf"
+    )
+
     converter = Converter(
         indir=indir,
         outdir=outdir,
         outfile=outfile,
+        classes_only_outfile=classes_only_outfile,
         logfile=logfile,
         verbose=verbose,
     )

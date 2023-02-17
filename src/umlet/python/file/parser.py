@@ -140,7 +140,8 @@ class Parser:
                     elif line.startswith("def "):
                         processed_constructor = True
                         found_constructor = False
-                        method = line.lstrip("def ").split("(")[0]
+                        method = line.split("(")[0].replace("def ", "")
+                        # method = line.lstrip("def ").split("(")[0]
                         logging.info(f"derived method '{method}' from line '{line}'")
                         self.methods_list.append(method)
 

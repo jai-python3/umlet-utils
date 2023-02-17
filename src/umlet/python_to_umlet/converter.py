@@ -23,6 +23,7 @@ class Converter:
         """Class constructor."""
         self.outdir = kwargs.get("outdir", None)
         self.outfile = kwargs.get("outfile", None)
+        self.classes_only_outfile = kwargs.get("classes_only_outfile", None)
         self.logfile = kwargs.get("logfile", None)
         self.indir = kwargs.get("indir", None)
 

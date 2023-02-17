@@ -34,6 +34,7 @@ class Writer:
         """Constructor for class for writing the Umlet .uxf files."""
         self.outdir = kwargs.get("outdir", None)
         self.outfile = kwargs.get("outfile", None)
+        self.classes_only_outfile = kwargs.get("classes_only_outfile", None)
         self.logfile = kwargs.get("logfile", None)
         self.indir = kwargs.get("indir", None)
         self.verbose = kwargs.get("verbose", None)
@@ -58,9 +59,13 @@ class Writer:
         background_color = BACKGROUND_COLOR
 
         content = []
+        classes_only_content = []
 
         content.append('<diagram program="umletino" version="15.0.0">')
         content.append(f"<zoom_level>{zoom_level}</zoom_level>")
+
+        classes_only_content.append('<diagram program="umletino" version="15.0.0">')
+        classes_only_content.append(f"<zoom_level>{zoom_level}</zoom_level>")
 
         for obj in file_objects:
             class_name = obj["class_name"]
@@ -98,6 +103,22 @@ class Writer:
             content.append(f"{class_name}\n")
             content.append("--")
 
+
+            classes_only_content.append(
+                f"""<element>
+                        <id>UMLClass</id>
+                        <coordinates>
+                            <x>{x}</x>
+                            <y>{y}</y>
+                            <w>{w}</w>
+                            <h>{h}</h>
+                        </coordinates>
+                        <panel_attributes>bg={background_color}"""
+            )
+
+            classes_only_content.append(f"{class_name}\n")
+            classes_only_content.append("--")
+
             for attribute in private_attributes_list:
                 content.append(f"- {attribute}")
 
@@ -117,13 +138,29 @@ class Writer:
                     content.append(f"// {import_statement}")
                 content.append("\n")
 
+                classes_only_content.append("// dependencies:")
+                for import_statement in imports_list:
+                    classes_only_content.append(f"// {import_statement}")
+                classes_only_content.append("\n")
+
             if len(constants_list) > 0:
                 content.append("// constants:")
-                for import_statement in constants_list:
-                    content.append(f"// {import_statement}")
+                for constant in constants_list:
+                    content.append(f"// {constant}")
                 content.append("\n")
 
+                classes_only_content.append("// constants:")
+                for constant in constants_list:
+                    classes_only_content.append(f"// {constant}")
+                classes_only_content.append("\n")
+
             content.append(
+                """</panel_attributes>
+                    <additional_attributes></additional_attributes>
+                </element>"""
+            )
+
+            classes_only_content.append(
                 """</panel_attributes>
                     <additional_attributes></additional_attributes>
                 </element>"""
@@ -133,11 +170,26 @@ class Writer:
             y += Y_POSITION_INCREMENT
 
         content.append("</diagram>")
+        classes_only_content.append("</diagram>")
 
+        self._write_outfile(content)
+        self._write_classes_only_outfile(classes_only_content)
+
+    def _write_outfile(self, content) -> None:
         with open(self.outfile, "w") as of:
             for line in content:
                 of.write(f"{line}\n")
 
         logging.info(f"Wrote file '{self.outfile}'")
-        if self.verbose:
-            print(f"Wrote file '{self.outfile}'")
+        print(f"Wrote file '{self.outfile}'")
+
+    def _write_classes_only_outfile(self, content) -> None:
+        with open(self.classes_only_outfile, "w") as of:
+            for line in content:
+                of.write(f"{line}\n")
+
+        logging.info(f"Wrote classes only file '{self.classes_only_outfile}'")
+        print(f"Wrote classes only file '{self.classes_only_outfile}'")
+
+
+
