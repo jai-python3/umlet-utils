@@ -1,0 +1,3 @@
+echo "Will enable custom umlet-utils aliases (in $0)"
+alias uuu="bash ~/.tools/umlet-utils/src/python_api_to_umlet.sh "
+alias show-umlet-utils-aliases="grep '^alias' $0 | grep -v show-umlet-utils-aliases | sed 's/^alias //' | sed 's/=\"/ -> /' | sed 's/\"$//'"
