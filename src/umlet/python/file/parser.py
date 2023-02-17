@@ -22,6 +22,7 @@ class Parser:
 
         self.is_parsed = False
         self.private_attributes_list = []
+        self.uniq_private_attributes_lookup = {}
         self.class_name = None
         self.methods_list = []
         self.imports_list = []
@@ -130,7 +131,12 @@ class Parser:
                         logging.info(
                             f"derived private attribute '{private_attribute}' from line '{line}'"
                         )
-                        self.private_attributes_list.append(private_attribute)
+                        if private_attribute not in self.uniq_private_attributes_lookup:
+                            self.private_attributes_list.append(private_attribute)
+                            self.uniq_private_attributes_lookup[
+                                private_attribute
+                            ] = True
+
                     elif line.startswith("def "):
                         processed_constructor = True
                         found_constructor = False
