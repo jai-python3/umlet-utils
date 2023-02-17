@@ -19,6 +19,9 @@ Y_INITIAL_POSITION = 500
 WIDTH = 200
 HEIGHT = 150
 
+CLASSES_WIDTH_MULTIPLIER = 6.9
+CLASSES_ONLY_HEIGHT = 50
+
 X_POSITION_INCREMENT = 10
 Y_POSITION_INCREMENT = 10
 
@@ -94,7 +97,7 @@ class Writer:
                         <coordinates>
                             <x>{x}</x>
                             <y>{y}</y>
-                            <w>{w}</w>
+                            <w>{int(CLASSES_WIDTH_MULTIPLIER * len(class_name))}</w>
                             <h>{h}</h>
                         </coordinates>
                         <panel_attributes>bg={background_color}"""
@@ -103,15 +106,14 @@ class Writer:
             content.append(f"{class_name}\n")
             content.append("--")
 
-
             classes_only_content.append(
                 f"""<element>
                         <id>UMLClass</id>
                         <coordinates>
                             <x>{x}</x>
                             <y>{y}</y>
-                            <w>{w}</w>
-                            <h>{h}</h>
+                            <w>{int(CLASSES_WIDTH_MULTIPLIER * len(class_name))}</w>
+                            <h>{CLASSES_ONLY_HEIGHT}</h>
                         </coordinates>
                         <panel_attributes>bg={background_color}"""
             )
@@ -190,6 +192,3 @@ class Writer:
 
         logging.info(f"Wrote classes only file '{self.classes_only_outfile}'")
         print(f"Wrote classes only file '{self.classes_only_outfile}'")
-
-
-
