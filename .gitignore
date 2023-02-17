@@ -146,3 +146,6 @@ sonar-project.properties
 
 # All Visual Studio Code files
 .vscode
+
+# All Umlet XML files
+.uxf
