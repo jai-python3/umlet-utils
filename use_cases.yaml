@@ -1,0 +1,13 @@
+---
+use_cases:
+  - use case 1
+  - use case 2
+  - use case 3
+  - use case 4
+  - use case 5
+  - use case 6
+actors:
+  - data scientist
+  - data engineer
+  - system engineer
+  - devops
