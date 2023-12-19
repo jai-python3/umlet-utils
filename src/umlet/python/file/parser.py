@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 import os
+
+from typing import Tuple
 from datetime import datetime
 
 DEFAULT_OUTDIR = os.path.join(
@@ -140,18 +142,39 @@ class Parser:
                     elif line.startswith("def "):
                         processed_constructor = True
                         found_constructor = False
-                        method = line.split("(")[0].replace("def ", "")
+
+                        method, method_signature = self._parse_method(line)
                         # method = line.lstrip("def ").split("(")[0]
                         logging.info(f"derived method '{method}' from line '{line}'")
-                        self.methods_list.append(method)
+                        self.methods_list.append(method_signature)
 
                 elif line.startswith("def ") and processed_constructor:
-                    method = line.split("(")[0].replace("def ", "")
+                    method, method_signature = self._parse_method(line)
                     logging.info(f"derived method '{method}' from line '{line}'")
-                    self.methods_list.append(method)
+                    self.methods_list.append(method_signature)
 
         if line_ctr > 0:
             logging.info(f"Read '{line_ctr}' lines from file '{self.infile}'")
         else:
             logging.info(f"Did not read any lines from file '{self.infile}'")
         self.is_parsed = True
+
+    def _parse_method(self, line: str) -> Tuple[str, str]:
+        """Parse the method to derive the method name and method signature.
+
+        Args:
+            line (str): the line to parse
+        Returns:
+            str: the method name
+            str: the method signature
+        """
+        method_name = line.strip().split("(")[0].lstrip("def ")
+        method_signature = line.strip().lstrip("def ")
+
+        if "(self, " in method_signature:
+            method_signature = method_signature.replace("(self, ", "(")
+        elif "(self " in method_signature:
+            method_signature = method_signature.replace("(self ", "(")
+
+        method_signature = method_signature.rstrip(":") # remove trailing colon
+        return method_name, method_signature
