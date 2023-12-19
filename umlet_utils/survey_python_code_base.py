@@ -9,7 +9,8 @@ from typing import Union
 
 import click
 from colorama import Fore, Style
-from umlet.python.code_base.surveyor import Surveyor
+
+from .umlet.python.code_base.surveyor import Surveyor
 
 TIMESTAMP = str(datetime.today().strftime("%Y-%m-%d-%H%M%S"))
 

@@ -4,8 +4,8 @@ import os
 from datetime import datetime
 from typing import Any, Dict, Union
 
-from umlet.file_system.util import Util
-from umlet.python.file.parser import Parser
+from ....umlet.file_system.util import Util
+from ....umlet.python.file.parser import Parser
 
 DEFAULT_OUTDIR = os.path.join(
     "/tmp",
@@ -81,7 +81,7 @@ class Surveyor:
 
 
     def _write_report_file(self, file_objects: Union[Dict[str, Any], None] = None) -> None:
-        
+
         with open(self.outfile, 'w') as of:
             of.write(f"## method-created: {os.path.abspath(__file__)}\n")
             of.write(f"## date-created: {str(datetime.today().strftime('%Y-%m-%d-%H%M%S'))}\n")
@@ -91,13 +91,13 @@ class Surveyor:
             of.write("\n\n========================================\n\n")
             of.write("\t\tSummary\n")
             of.write("\n\n========================================\n\n")
-        
+
             of.write(f"Number of files: {self.file_ctr}\n")
             of.write(f"Number of classes: {self.class_ctr}\n")
             of.write(f"Number of methods: {self.method_ctr}\n")
             of.write(f"Number of unique imports: {len(self.imports_set)}\n")
             of.write(f"Number of unique constants: {len(self.constants_set)}\n")
-        
+
             for fo in file_objects:
                 of.write("\n========================================\n")
 
@@ -125,6 +125,5 @@ class Surveyor:
 
 
         logging.info(f"Wrote file '{self.outfile}'")
-        if self.verbose: 
+        if self.verbose:
             print(f"Wrote file '{self.outfile}'")
-        

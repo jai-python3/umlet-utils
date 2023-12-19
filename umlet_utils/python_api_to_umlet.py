@@ -9,7 +9,7 @@ from pathlib import Path
 import click
 from colorama import Fore, Style
 
-from umlet.python_to_umlet.converter import Converter
+from .umlet.python_to_umlet.converter import Converter
 
 TIMESTAMP = str(datetime.today().strftime("%Y-%m-%d-%H%M%S"))
 

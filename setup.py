@@ -10,7 +10,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', ]
+requirements = ['Click>=7.0', "colorama"]
 
 test_requirements = [ ]
 
@@ -30,7 +30,9 @@ setup(
     description="Software for generating Umlet class diagrams of a Python code base",
     entry_points={
         'console_scripts': [
-            'umlet_utils=umlet_utils.cli:main',
+            'umlet-utils-python-api-to-umlet-class-diagram=umlet_utils.python_api_to_umlet:main',
+            'umlet-utils-survey-python-codebase=umlet_utils.survey_python_code_base:main',
+            'umlet-utils-yaml-to-use-case=umlet_utils.yaml_to_umlet_use_case:main',
         ],
     },
     install_requires=requirements,
@@ -41,7 +43,7 @@ setup(
     packages=find_packages(include=['umlet_utils', 'umlet_utils.*']),
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/jai-python3/umlet_utils',
+    url='https://github.com/jai-python3/umlet-utils',
     version='0.1.0',
     zip_safe=False,
 )

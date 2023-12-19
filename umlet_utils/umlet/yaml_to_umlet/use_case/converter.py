@@ -6,7 +6,7 @@ from datetime import datetime
 
 import yaml
 
-from umlet.use_case.file.writer import Writer
+from ....umlet.use_case.file.writer import Writer
 
 DEFAULT_OUTDIR = os.path.join(
     "/tmp",

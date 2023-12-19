@@ -3,9 +3,9 @@ import logging
 import os
 from datetime import datetime
 
-from umlet.file.writer import Writer
-from umlet.file_system.util import Util
-from umlet.python.file.parser import Parser
+from ..file.writer import Writer
+from ..file_system.util import Util
+from ..python.file.parser import Parser
 
 DEFAULT_OUTDIR = os.path.join(
     "/tmp",
