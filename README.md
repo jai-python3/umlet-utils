@@ -4,60 +4,132 @@ Software for generating Umlet class diagrams of a Python code base
 
 Reference: https://www.umlet.com/
 
-## Set-up Python virtual environment
 
-```shell
-cd ~/umlet-utils
-virtualenv -p python3.8 venv
+
+- [umlet-utils](#umlet-utils)
+  - [Motivation](#motivation)
+  - [Improvements](#improvements)
+  - [Use Cases](#use-cases)
+  - [Class Diagrams](#class-diagrams)
+  - [Installation](#installation)
+    - [Developers](#developers)
+  - [Exported scripts](#exported-scripts)
+  - [Contributing](#contributing)
+  - [To-Do/Coming Next](#to-docoming-next)
+  - [CHANGELOG](#changelog)
+  - [License](#license)
+
+
+
+## Motivation
+
+Explain what the motivation was for developing this package OR<br>
+explain how this package was improved after being forked.
+
+
+## Improvements
+
+Please see the [TODO](TODO.md) for a list of upcoming improvements.
+
+
+## Use Cases
+
+![use case diagram](use_cases.png)
+
+
+## Class Diagrams
+
+![class diagrams](class_diagrams.png)
+
+## Installation
+
+Clone this project and then run the pip installer
+
+```bash
+git clone https://github.com/jai-python3/umlet-utils.git
+cd umlet-utils
+virtualenv -p python3 venv
 source venv/bin/activate
-pip install -r requirements.txt
+python setup.py sdist
+pip install .
 ```
 
-## Enable the umlet-util aliases
+You can uninstall like this:
 
-Add the following line to your .bashrc
-
-```
-echo "source ${HOME}/umlet-utils/aliases.txt" >> ${HOME}/.bashrc
-```
-
-Execute the following to enable the umlet-utils
-
-```
-source ${HOME}/.bashrc
+```bash
+pip uninstall umlet-utils
+make clean
 ```
 
-## Execution
+### Developers
 
-Invocation via the Python script
+If you modify the code in this package in your local virtual environment:
 
 ```shell
-source ${HOME}/umlet-utils/venv/bin/activate
-python ${HOME}/umlet-utils/src/python_api_to_umlet.py
+pip uninstall umlet-utils
+make clean
+python setup.py sdist
+pip install .
 ```
 
-Invocation via the wrapper shell script
+If you want to export the code in this package to the PYPI repository:
+
+Install `twine` and `setuptools`:
 
 ```shell
-bash ${HOME}/umlet-utils/src/python_api_to_umlet.sh
+pip install twine setuptools
 ```
 
-Invocation via the  alias
 
-
-This will execute umlet-utils/src/python_api_to_umlet.py on the current directory:
+Build the Distribution Package
 
 ```shell
-uuu
+python setup.py sdist bdist_wheel
 ```
 
-Specify an input directory other than the current like this:
+Configure your ~/.pypirc:
 
+```bash
+[pypi]
+  username = __token__
+  password = pypi-YOUR-TOKEN
+```
+
+Upload Your Package to PyPI
 
 ```shell
-uuu --indir [some directory with Python code base containing some classes]
+twine upload dist/*
 ```
 
-## Contact
 
-Jaideep Sundaram
+Now you can install your package in your Python virtual environment
+
+```shell
+pip install umlet-utils
+```
+
+
+## Exported scripts
+
+To use the exported script for ... :
+
+```bash
+
+```
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
+
+## To-Do/Coming Next
+
+Please view the listing of planned improvements [here](TODO.md).
+
+## CHANGELOG
+
+Please view the CHANGELOG [here](CHANGELOG.md).
+
+## License
+
+[GNU AFFERO GENERAL PUBLIC LICENSE](LICENSE)
