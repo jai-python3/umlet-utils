@@ -23,8 +23,9 @@ Reference: https://www.umlet.com/
 
 ## Motivation
 
-Explain what the motivation was for developing this package OR<br>
-explain how this package was improved after being forked.
+Creating class diagrams can be a tedious process.<br>
+This software can automatically read a Python codebase<br>
+and then generate a UMLet .uxf file contain the class diagrams.
 
 
 ## Improvements
@@ -111,11 +112,11 @@ pip install umlet-utils
 
 ## Exported scripts
 
-To use the exported script for ... :
+To use the exported scripts:
+- umlet-utils-python-api-to-umlet-class-diagram
+- umlet-utils-survey-python-codebase
+- umlet-utils-yaml-to-use-case
 
-```bash
-
-```
 
 ## Contributing
 

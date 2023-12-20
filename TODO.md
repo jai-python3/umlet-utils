@@ -1,4 +1,3 @@
-- refactor profiling module
-- unit tests (pytest)
-- use case diagram
 - class diagram
+- add support for parsing Pydantic classes
+- unit tests (pytest)
