@@ -1,0 +1,2 @@
+- Implement unit tests (pytest)
+- Add Class diagram

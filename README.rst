@@ -3,18 +3,18 @@ UMLet Utils
 ===========
 
 
-
-
-
-
-Software for generating Umlet class diagrams of a Python code base
-
+Utilities for  generating Umlet use case- and class diagrams.
 
 
 Features
 --------
 
-* TODO
+The following exported console scripts are available:
+
+- umlet-utils-python-api-to-umlet-class-diagram
+- umlet-utils-survey-python-codebase
+- umlet-utils-yaml-to-use-case
+
 
 Credits
 -------
