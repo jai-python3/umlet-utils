@@ -10,7 +10,11 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', "colorama"]
+requirements = [
+    "Click>=7.0",
+    "colorama",
+    "Rich",
+]
 
 test_requirements = [ ]
 
@@ -30,6 +34,7 @@ setup(
     description="Software for generating Umlet class diagrams of a Python code base",
     entry_points={
         'console_scripts': [
+            'make-umlet-utils=umlet_utils.make_shell_scripts_and_aliases:main',
             'umlet-utils-python-api-to-umlet-class-diagram=umlet_utils.python_api_to_umlet:main',
             'umlet-utils-survey-python-codebase=umlet_utils.survey_python_code_base:main',
             'umlet-utils-yaml-to-use-case=umlet_utils.yaml_to_umlet_use_case:main',
